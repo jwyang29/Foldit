@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foldit - Fold what you want</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #FF4015;
+            --bg-color: #F0EDE5; /* 레퍼런스의 미색 배경 느낌 */
+            --white: #ffffff;
+            --black: #1a1a1a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg-color); 
+            color: var(--black);
+            overflow-x: hidden;
+        }
+
+        /* --- 1. Landing Page --- */
+        #landing {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--bg-color);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 1000; cursor: pointer;
+            transition: transform 0.8s cubic-bezier(0.87, 0, 0.13, 1);
+        }
+
+        .slogan-container {
+            font-size: 5vw; font-weight: 900; line-height: 1;
+            display: flex; align-items: center; gap: 0;
+            text-transform: uppercase; white-space: nowrap;
+        }
+
+        .fold-text { color: var(--black); }
+        .it-text { color: var(--primary-color); }
+
+        .hidden-text {
+            width: 0; overflow: hidden; opacity: 0;
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+            color: var(--black); font-size: 3vw;
+            display: flex; flex-direction: column; align-items: center;
+            margin: 0 1rem;
+        }
+
+        .hidden-text.active { width: auto; opacity: 1; padding: 0 20px; }
+
+        .yours-text { opacity: 0; }
+        .yours-text.blink { animation: blink 1s infinite; opacity: 1; }
+
+        @keyframes blink { 
+            0%, 100% { opacity: 1; } 50% { opacity: 0.2; } 
+        }
+
+        /* --- 2. Main Page Layout --- */
+        #main-page { display: none; padding: 40px; }
+
+        nav { 
+            display: flex; gap: 40px; margin-bottom: 60px;
+            border-bottom: 2px solid var(--black); padding-bottom: 20px;
+        }
+
+        .tab-btn {
+            font-size: 1.5rem; font-weight: 900; cursor: pointer;
+            text-transform: uppercase; border: none; background: none;
+            color: #ccc; transition: color 0.3s;
+        }
+
+        .tab-btn.active { color: var(--primary-color); }
+
+        .tab-content { display: none; animation: fadeIn 0.5s ease; }
+        .tab-content.active { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- 3. Mockup & Components --- */
+        .mockup-container {
+            background: var(--white);
+            border: 8px solid var(--black);
+            border-radius: 40px;
+            width: 320px; height: 640px;
+            margin: 0 auto; position: relative;
+            overflow: hidden;
+        }
+
+        .mockup-screen {
+            width: 100%; height: 100%;
+            display: flex; justify-content: center; align-items: center;
+            background: #eee; font-weight: bold;
+        }
+
+        /* --- Tab 3-1 Steps --- */
+        .step-container { grid-column: span 2; display: flex; flex-direction: column; gap: 20px; }
+        .step-box { background: var(--white); border: 2px solid var(--black); padding: 20px; }
+        .circle-point { width: 40px; height: 40px; background: var(--primary-color); border-radius: 50%; display: inline-block; margin-bottom: 10px; }
+
+    </style>
+</head>
+<body>
+
+    <div id="landing" onclick="goToMain()">
+        <div class="slogan-container">
+            <span class="fold-text">FOLD</span>
+            <div id
