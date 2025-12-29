@@ -5,105 +5,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Foldit - Fold what you want</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #FF4015;
-            --bg-color: #F0EDE5; /* 레퍼런스의 미색 배경 느낌 */
-            --white: #ffffff;
-            --black: #1a1a1a;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: var(--bg-color); 
-            color: var(--black);
-            overflow-x: hidden;
-        }
-
-        /* --- 1. Landing Page --- */
-        #landing {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-color: var(--bg-color);
-            display: flex; justify-content: center; align-items: center;
-            z-index: 1000; cursor: pointer;
-            transition: transform 0.8s cubic-bezier(0.87, 0, 0.13, 1);
-        }
-
-        .slogan-container {
-            font-size: 5vw; font-weight: 900; line-height: 1;
-            display: flex; align-items: center; gap: 0;
-            text-transform: uppercase; white-space: nowrap;
-        }
-
-        .fold-text { color: var(--black); }
-        .it-text { color: var(--primary-color); }
-
-        .hidden-text {
-            width: 0; overflow: hidden; opacity: 0;
-            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
-            color: var(--black); font-size: 3vw;
-            display: flex; flex-direction: column; align-items: center;
-            margin: 0 1rem;
-        }
-
-        .hidden-text.active { width: auto; opacity: 1; padding: 0 20px; }
-
-        .yours-text { opacity: 0; }
-        .yours-text.blink { animation: blink 1s infinite; opacity: 1; }
-
-        @keyframes blink { 
-            0%, 100% { opacity: 1; } 50% { opacity: 0.2; } 
-        }
-
-        /* --- 2. Main Page Layout --- */
-        #main-page { display: none; padding: 40px; }
-
-        nav { 
-            display: flex; gap: 40px; margin-bottom: 60px;
-            border-bottom: 2px solid var(--black); padding-bottom: 20px;
-        }
-
-        .tab-btn {
-            font-size: 1.5rem; font-weight: 900; cursor: pointer;
-            text-transform: uppercase; border: none; background: none;
-            color: #ccc; transition: color 0.3s;
-        }
-
-        .tab-btn.active { color: var(--primary-color); }
-
-        .tab-content { display: none; animation: fadeIn 0.5s ease; }
-        .tab-content.active { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* --- 3. Mockup & Components --- */
-        .mockup-container {
-            background: var(--white);
-            border: 8px solid var(--black);
-            border-radius: 40px;
-            width: 320px; height: 640px;
-            margin: 0 auto; position: relative;
-            overflow: hidden;
-        }
-
-        .mockup-screen {
-            width: 100%; height: 100%;
-            display: flex; justify-content: center; align-items: center;
-            background: #eee; font-weight: bold;
-        }
-
-        /* --- Tab 3-1 Steps --- */
-        .step-container { grid-column: span 2; display: flex; flex-direction: column; gap: 20px; }
-        .step-box { background: var(--white); border: 2px solid var(--black); padding: 20px; }
-        .circle-point { width: 40px; height: 40px; background: var(--primary-color); border-radius: 50%; display: inline-block; margin-bottom: 10px; }
-
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div id="landing" onclick="goToMain()">
         <div class="slogan-container">
             <span class="fold-text">FOLD</span>
-            <div id
+            <div id="expand-box" class="hidden-text">
+                <span>WHAT YOU WANT,</span>
+                <span>MAKE</span>
+            </div>
+            <span class="it-text">IT</span>
+            <span id="yours" class="yours-text">YOURS</span>
+        </div>
+    </div>
+
+    <div id="main-page">
+        <header>
+            <h1 class="logo">FOLDIT</h1>
+        </header>
+
+        <nav class="main-nav">
+            <button class="tab-btn active" onclick="showTab(1)">ABOUT APP</button>
+            <button class="tab-btn" onclick="showTab(2)">DEMO UI</button>
+            <button class="tab-btn" onclick="showTab(3)">AI LAB</button>
+        </nav>
+
+        <section id="tab1" class="tab-content active">
+            <div class="content-text">
+                <h2>원하는 것이<br>접는 순간 시작된다.</h2>
+                <p>아날로그 종이접기의 즐거움을 디지털 월드로 연결합니다.</p>
+            </div>
+            <div class="content-visual-placeholder"></div>
+        </section>
+
+        <section id="tab2" class="tab-content">
+            <div class="content-text">
+                <h2>APP UI SHOWCASE</h2>
+                <p>목업 프레임을 통해 실제 앱의 흐름을 확인하세요.</p>
+            </div>
+            <div class="mockup-container">
+                <div class="mockup-screen">UI ANIMATION</div>
+            </div>
+        </section>
+
+        <section id="tab3" class="tab-content">
+            <div class="ai-lab-wrapper">
+                <div class="sub-tab-nav">
+                    <button class="sub-btn active" onclick="showSubTab('3-1')">3-1. AI Recognition</button>
+                    <button class="sub-btn" onclick="showSubTab('3-2')">3-2. Sam3D (TBD)</button>
+                </div>
+
+                <div id="sub-content-3-1" class="ai-step-box">
+                    <div class="step-item">
+                        <span class="step-dot"></span>
+                        <h3>STEP 1: 카테고리 설정</h3>
+                        <p>원하는 사물 카테고리를 선택하세요.</p>
+                    </div>
+                    <div class="step-item">
+                        <span class="step-dot"></span>
+                        <h3>STEP 2: 웹캠 인식</h3>
+                        <p>카메라에 종이접기를 비추면 AI가 분석을 시작합니다.</p>
+                    </div>
+                    <div class="step-item">
+                        <span class="step-dot"></span>
+                        <h3>STEP 3: 3D 생성 및 확인</h3>
+                        <p>인식된 사물이 3D 모델로 변환되어 나타납니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
