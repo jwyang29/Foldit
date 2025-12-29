@@ -8,62 +8,88 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--black); overflow-x: hidden; }
 
-/* Landing Page */
+/* --- [섹션 1] 랜딩 페이지 --- */
 #landing {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: var(--bg); display: flex; justify-content: center; align-items: center;
-    z-index: 1000; cursor: pointer; transition: transform 0.8s ease-in-out;
+    z-index: 1000; cursor: pointer; transition: transform 0.8s cubic-bezier(0.87, 0, 0.13, 1);
 }
 
-.slogan-container { font-size: 5vw; font-weight: 900; display: flex; align-items: center; text-transform: uppercase; }
+.slogan-container { 
+    font-size: 5vw; font-weight: 900; display: flex; align-items: center; 
+    text-transform: uppercase; white-space: nowrap;
+}
+
+/* 텍스트 확장 애니메이션 핵심 */
+.hidden-text {
+    max-width: 0; /* 0에서 시작 */
+    opacity: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: max-width 1s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease;
+    font-size: 3vw;
+    color: var(--black);
+}
+
+.hidden-text.active {
+    max-width: 800px; /* 애니메이션이 멈추지 않도록 충분한 너비 설정 */
+    opacity: 1;
+    margin: 0 2vw;
+}
+
 .it-text { color: var(--primary); }
 
-.hidden-text {
-    width: 0; opacity: 0; overflow: hidden; display: flex; flex-direction: column; 
-    align-items: center; transition: all 0.8s ease; font-size: 3vw; margin: 0 1vw;
+.yours-text { 
+    opacity: 0; 
+    margin-left: 1vw; 
+    transition: opacity 0.5s ease;
 }
-.hidden-text.active { width: auto; opacity: 1; padding: 0 2vw; }
 
-.yours-text { opacity: 0; margin-left: 1vw; }
-.yours-text.blink { animation: blink 1s infinite; opacity: 1; }
+.yours-text.blink { 
+    animation: blink 1s infinite; 
+    opacity: 1; 
+}
 
 @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
 
-/* Main Page Layout */
+/* --- [섹션 2] 메인 페이지 레이아웃 --- */
 #main-page { display: none; padding: 50px; }
-.logo { font-weight: 900; color: var(--primary); margin-bottom: 30px; }
+.logo { font-weight: 900; color: var(--primary); margin-bottom: 30px; letter-spacing: -2px; }
 
 .main-nav { display: flex; gap: 40px; border-bottom: 3px solid var(--black); margin-bottom: 50px; }
 .tab-btn { 
     font-size: 1.8rem; font-weight: 900; border: none; background: none; 
     color: #bbb; cursor: pointer; padding-bottom: 15px; text-transform: uppercase;
 }
-.tab-btn.active { color: var(--primary); }
+.tab-btn.active { color: var(--primary); border-bottom: 3px solid var(--primary); margin-bottom: -3px; }
 
-/* Tab Contents */
-.tab-content { display: none; grid-template-columns: 1fr 1fr; gap: 60px; animation: slideUp 0.6s ease; }
+/* 탭 콘텐츠 공통 */
+.tab-content { display: none; grid-template-columns: 1fr 1fr; gap: 60px; animation: slideUp 0.6s ease forwards; }
 .tab-content.active { display: grid; }
 
 @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
 .content-text h2 { font-size: 3.5rem; font-weight: 900; line-height: 1.1; margin-bottom: 20px; }
+
+/* 시각 요소 프레임 */
 .content-visual-placeholder { background: var(--primary); min-height: 450px; border: 4px solid var(--black); }
 
-/* Mockup */
+/* 모바일 목업 디자인 */
 .mockup-container { 
-    width: 300px; height: 600px; border: 8px solid var(--black); 
-    border-radius: 45px; background: var(--white); margin: 0 auto;
+    width: 300px; height: 600px; border: 10px solid var(--black); 
+    border-radius: 50px; background: var(--white); margin: 0 auto;
+    display: flex; align-items: center; justify-content: center;
 }
-.mockup-screen { 
-    height: 100%; display: flex; align-items: center; justify-content: center; font-weight: 900; 
-}
+.mockup-screen { font-weight: 900; color: #ddd; }
 
-/* AI Lab Sub-tabs */
+/* AI LAB 전용 스타일 */
 .ai-lab-wrapper { grid-column: span 2; }
 .sub-tab-nav { margin-bottom: 30px; display: flex; gap: 15px; }
-.sub-btn { padding: 10px 20px; font-weight: 900; border: 2px solid var(--black); background: var(--white); cursor: pointer; }
+.sub-btn { padding: 12px 24px; font-weight: 900; border: 3px solid var(--black); background: var(--white); cursor: pointer; }
 .sub-btn.active { background: var(--black); color: var(--white); }
 
 .ai-step-box { background: var(--white); border: 4px solid var(--black); padding: 40px; }
-.step-item { margin-bottom: 30px; position: relative; padding-left: 50px; }
-.step-dot { position: absolute; left: 0; top: 5px; width: 30px; height: 30px; background: var(--primary); border-radius: 50%; }
+.step-item { margin-bottom: 30px; position: relative; padding-left: 60px; }
+.step-dot { position: absolute; left: 0; top: 0; width: 35px; height: 35px; background: var(--primary); border-radius: 50%; }
