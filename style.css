@@ -1,70 +1,66 @@
 :root {
     --primary: #FF4015;
-    --orange-v: #E66136;
-    --brown-h: #A0452D;
-    --thickness: 24px;
-    --font-size: 120px;
+    --black: #000000;
+    --gray: #f5f5f7;
+    --font-size-landing: 120px;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Inter', sans-serif; background: #fff; overflow: hidden; }
+body { font-family: 'Inter', sans-serif; background: #fff; color: #111; overflow-x: hidden; }
 
-#landing { position: fixed; inset: 0; display: flex; justify-content: center; align-items: center; z-index: 2000; }
-.landing-container { display: flex; align-items: center; position: relative; }
-.bold-text { font-size: var(--font-size); font-weight: 900; letter-spacing: -3px; }
-.bold-text.orange { color: var(--primary); }
-
-#typing-container { max-width: 0; opacity: 0; overflow: hidden; white-space: nowrap; transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-#typing-container.active { max-width: 600px; opacity: 1; margin: 0 35px; }
-#typing-text { font-size: 28px; font-style: italic; color: #444; }
-
-.scene {
-    position: absolute; left: 56px; top: 6px;
-    width: 70px; height: 100px; display: none;
-    perspective: 1500px; /* 3D 깊이감 강화 */
-    transform-style: preserve-3d;
+/* --- 랜딩 애니메이션 --- */
+#landing {
+    position: fixed; inset: 0; background: #fff;
+    display: flex; justify-content: center; align-items: center; z-index: 2000;
+    transition: opacity 0.8s ease;
 }
-.scene.visible { display: block; }
+.animation-container { display: flex; align-items: center; letter-spacing: -5px; }
+.bold-text { font-size: var(--font-size-landing); font-weight: 900; color: var(--black); transition: color 0.6s ease; }
+#typing-wrapper { max-width: 0; opacity: 0; overflow: hidden; white-space: nowrap; display: flex; align-items: center; transition: all 0.8s cubic-bezier(0.85, 0, 0.15, 1); }
+#typing-text { font-size: 32px; font-weight: 400; color: #555; font-style: italic; letter-spacing: 0; }
+.animation-container.expanded #typing-wrapper { max-width: 650px; opacity: 1; margin: 0 50px; }
+.animation-container.orange-mode .bold-text { color: var(--primary); }
 
-/* [핵심 수정] 가로 막대: 무조건 가장 뒤로 */
-.bar-horizontal {
-    position: absolute; top: 0; left: 0; 
-    width: 68px; height: var(--thickness);
-    background: var(--brown-h);
-    z-index: 1;
-    /* translateZ(-10px)를 사용하여 물리적 레이어를 최하단으로 고정 */
-    transform: translateY(0) translateZ(-10px) !important;
-    transition: none;
-}
+/* --- 메인 페이지 레이아웃 --- */
+#main-page { padding: 40px 60px; min-height: 100vh; }
+.main-logo { font-size: 2rem; font-weight: 900; color: var(--primary); margin-bottom: 30px; }
 
-/* 세로 하단 기둥: 중간 레이어 */
-.bar-vertical-bottom {
-    position: absolute; top: 0; left: 22px;
-    width: var(--thickness); height: 85px;
-    background: var(--orange-v);
-    z-index: 2;
-    transform: translateZ(0px); /* 기준점 */
-}
+/* 내비게이션 */
+.main-nav { display: flex; gap: 40px; border-bottom: 1px solid #ddd; margin-bottom: 50px; }
+.tab-btn { background: none; border: none; font-size: 1.1rem; font-weight: 900; color: #bbb; cursor: pointer; padding-bottom: 15px; transition: 0.3s; }
+.tab-btn.active { color: var(--primary); border-bottom: 3px solid var(--primary); }
 
-/* 세로 상단 조각: 가장 앞 레이어 */
-.bar-vertical-top {
-    position: absolute; bottom: calc(100% - var(--thickness)); left: 22px;
-    width: var(--thickness); height: 55px;
-    background: var(--orange-v);
-    z-index: 3;
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - var(--thickness)));
-    transform-origin: 0% calc(100% - var(--thickness));
-    
-    /* translateZ(10px)로 항상 가로막대보다 앞에 있도록 설정 */
-    transform: rotate3d(1, 1, 0, 180deg) translateZ(10px);
-    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), height 1s 0.8s ease;
-}
+/* 탭 콘텐츠 공통 */
+.tab-content { display: none; animation: fadeIn 0.6s ease forwards; }
+.tab-content.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-/* 펼쳐질 때와 발사될 때도 레이어(translateZ) 유지 */
-.scene.active-t .bar-vertical-top {
-    transform: rotate3d(1, 1, 0, 0deg) translateZ(10px);
+/* ABOUT APP 스타일 */
+.content-split { display: flex; gap: 60px; align-items: center; padding-top: 20px; }
+.text-side h2 { font-size: 3.5rem; font-weight: 900; line-height: 1.2; margin-bottom: 20px; }
+.text-side p { font-size: 1.2rem; color: #666; line-height: 1.6; }
+.placeholder-box { width: 400px; height: 300px; background: var(--gray); display: flex; align-items: center; justify-content: center; font-weight: 900; color: #ccc; border-radius: 20px; }
+
+/* DEMO UI 아이폰 목업 */
+.iphone-mockup-container { display: flex; justify-content: center; padding: 40px 0; }
+.iphone-14-pro-landscape {
+    width: 780px; height: 360px; background: #111; border-radius: 50px; padding: 12px;
+    border: 4px solid #333; position: relative; box-shadow: 0 30px 60px rgba(0,0,0,0.1);
 }
-.scene.launch .bar-vertical-top {
-    height: 2500px;
-    transform: rotate3d(1, 1, 0, 0deg) translateZ(10px);
+.screen { width: 100%; height: 100%; background: #fff; border-radius: 38px; overflow: hidden; position: relative; }
+.mockup-content { transform: scale(0.6); transform-origin: top left; width: 1300px; height: 600px; }
+.figma-preview { position: relative; height: 100%; }
+.f-text, .i-text { position: absolute; font-size: 120px; font-weight: 900; transform: rotate(-90deg); }
+.f-text { left: 200px; top: 300px; color: #000; }
+.i-text { left: 800px; top: 300px; color: var(--primary); }
+
+/* AI LAB 스타일 */
+.lab-placeholder { text-align: center; padding: 100px 0; background: var(--gray); border-radius: 30px; }
+
+/* 반응형 */
+@media (max-width: 768px) {
+    :root { --font-size-landing: 60px; }
+    .content-split { flex-direction: column; text-align: center; }
+    .iphone-14-pro-landscape { width: 100%; height: 200px; }
+    #typing-text { font-size: 16px; }
 }
