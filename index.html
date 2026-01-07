@@ -36,57 +36,18 @@
                     <h2>원하는 모든 것이<br><span class="highlight">접히는 순간</span> 시작됩니다.</h2>
                     <p>우리는 디지털 세상을 더 얇고, 더 가볍게 접어 전달합니다.<br>원하는 것은 무엇이든, 접어서 수집하세요.</p>
                 </div>
-
-                <div class="feature-grid">
-                    <div class="feature-card">
-                        <div class="card-icon">📂</div>
-                        <h3>Smart Spaces</h3>
-                        <p>다양한 상상 속 물건들을 종이로 접어 보관하세요. 인식 한 번으로 세계가 실현됩니다.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="card-icon">⚡</div>
-                        <h3>Fast Recognition</h3>
-                        <p>AI가 당신의 종이접기를 인식하고,원하는 아이템을 실시간으로 매칭해줍니다.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="card-icon">🎨</div>
-                        <h3>Personalized</h3>
-                        <p>당신의 상상을 색상과 질감으로 표현하세요. 커스터마이징된 아이템들은 당신의 개성이 됩니다.</p>
-                    </div>
-                </div>
-
-                <div class="split-section">
-                    <div class="split-text">
-                        <h4>Various Games</h4>
-                        <h2>다양한 월드,<br>다양한 게임들.</h2>
-                        <p>내 취향에 맞는 월드에서 게임을 즐겨보세요! 종이접기를 통해 다양한 게임을 즐길 수 있습니다.</p>
-                    </div>
-                    <div class="split-visual">
-                        <div class="mock-ui">
-                            <div class="ui-sidebar"></div>
-                            <div class="ui-main">
-                                <div class="ui-pane"></div>
-                                <div class="ui-pane"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="about-footer">
-                    <h2>READY TO FOLD?</h2>
-                    <button class="cta-button">Get Started</button>
-                </div>
-            </section>
+                </section>
 
             <section id="tab2" class="tab-content">
-                <div class="iphone-mockup-container">
+                <div class="iphone-mockup-wrapper">
                     <div class="iphone-14-pro-landscape">
+                        <div class="dynamic-island"></div>
                         <div class="screen">
-                            <div class="mockup-content">
-                                <div class="figma-preview">
-                                    <div class="f-text">FOLD</div>
-                                    <div class="i-text">IT</div>
-                                </div>
+                            <div class="figma-container">
+                                <div style="width: 1526px; height: 704px; position: relative; background: white; transform: scale(0.55); transform-origin: top left;">
+                                     <div style="position: absolute; left: 315px; top: 404px; font-size: 128px; font-weight: 700;">FOLD</div>
+                                     <div style="position: absolute; left: 1083px; top: 404px; font-size: 128px; font-weight: 700;">IT</div>
+                                     </div>
                             </div>
                         </div>
                     </div>
@@ -94,18 +55,34 @@
             </section>
 
             <section id="tab3" class="tab-content">
-                <div class="screen" id="ai-tab-1">
-    <div class="camera-view">
-        <div class="scan-overlay"></div>
-        <div class="ai-result-tag">DETECTED: ORIGAMI CRANE (98.2%)</div>
-        
-        <div style="position: absolute; bottom: 20px; width: 100%; text-align: center;">
-            <div style="display: inline-block; padding: 10px 30px; background: rgba(0,0,0,0.6); color: white; border-radius: 30px; font-size: 12px;">
-                AI 인식 모드 작동 중...
-            </div>
+                <div class="ai-lab-container">
+                    
+                    <div class="ai-window">
+                        <h3>01. AI Object Recognition</h3>
+                        <div class="mock-viewport camera-view">
+                            <div class="scan-overlay"></div>
+                            <div class="ai-result-tag">DETECTED: ORIGAMI CRANE (98.2%)</div>
+                            <div class="status-bar">AI 인식 모드 작동 중...</div>
+                        </div>
+                    </div>
+
+                    <div class="ai-window">
+                        <h3>02. Meta SAM3D Reconstruction</h3>
+                        <div class="mock-viewport sam3d-view">
+                            <div class="wireframe-object"></div>
+                            <div class="console-log">
+                                > SAM3D INITIALIZING...<br>
+                                > DEPTH MAP EXTRACTED.<br>
+                                > GENERATING MESH... [DONE]
+                            </div>
+                            <div class="brand-tag">META SAM3D ENGINE</div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
         </div>
     </div>
-</div>
 
     <script src="script.js"></script>
 </body>
