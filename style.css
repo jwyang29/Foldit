@@ -62,7 +62,7 @@ body { font-family: 'Inter', sans-serif; background: #fff; overflow: hidden; }
     top: 0; 
     left: 22px; /* 중앙 정렬: (68 - 24) / 2 */
     width: var(--thickness); 
-    height: 85px; /* 세로 길이 축소 */
+    height: 90px; /* 세로 길이 축소 */
     background: var(--orange-v); 
     z-index: 2; /* 중간 */
 }
