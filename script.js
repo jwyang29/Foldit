@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
-    runLandingAnimation();
+    runLandingSequence();
 });
 
-async function runLandingAnimation() {
+async function runLandingSequence() {
     const fold = document.getElementById('fold-text');
     const i = document.getElementById('i-text');
     const t = document.getElementById('t-text');
@@ -12,34 +12,40 @@ async function runLandingAnimation() {
     const landing = document.getElementById('landing');
     const main = document.getElementById('main-page');
 
+    const delay = (ms) => new Promise(res => setTimeout(res, ms));
+
     await delay(1000);
 
-    // 1단계: FOLD IT 사이 벌어짐 & 색상 변화 & 타이핑
+    // 1단계: 확장 및 타이핑
     fold.classList.add('orange');
     i.classList.add('orange');
     t.classList.add('orange');
     typingBox.classList.add('active');
-    await typeEffect("Fold what you want, make it yours", typingTxt);
+    
+    const slogan = "Fold what you want, make it yours";
+    for(let char of slogan) {
+        typingTxt.textContent += char;
+        await delay(45);
+    }
     
     await delay(1500);
 
-    // 2단계: 다시 좁혀짐 (검정색 복귀)
+    // 2단계: 수축
     typingBox.classList.remove('active');
     fold.classList.remove('orange');
     i.classList.remove('orange');
     t.classList.remove('orange');
     await delay(800);
 
-    // 3단계: 텍스트 T를 숨기고 3D 로고 등장 (대문자 T 형태)
+    // 3단계: 3D t 변신 (80% 크기)
     t.style.visibility = 'hidden';
     scene.classList.add('visible');
-    await delay(200);
-
-    // 4단계: 소문자 t로 펼쳐짐
+    await delay(100);
     scene.classList.add('active-t');
+    
     await delay(1200);
 
-    // 5단계: 발사 및 화면 전환
+    // 4단계: 발사 및 페이지 전환
     scene.classList.add('launch');
     await delay(1000);
 
@@ -51,22 +57,8 @@ async function runLandingAnimation() {
     }, 600);
 }
 
-function typeEffect(text, el) {
-    return new Promise(res => {
-        let idx = 0;
-        const timer = setInterval(() => {
-            el.textContent += text[idx];
-            idx++;
-            if (idx >= text.length) { clearInterval(timer); res(); }
-        }, 45);
-    });
-}
-
-function delay(ms) { return new Promise(res => setTimeout(res, ms)); }
-
 function showTab(n) {
     document.querySelectorAll('.tab-btn, .tab-content').forEach(el => el.classList.remove('active'));
     document.querySelectorAll('.tab-btn')[n-1].classList.add('active');
-    const tabs = ['tab1', 'tab2', 'tab3'];
-    document.getElementById(tabs[n-1]).classList.add('active');
+    document.querySelectorAll('.tab-content')[n-1].classList.add('active');
 }
