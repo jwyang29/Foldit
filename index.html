@@ -3,60 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Foldit - Final Precision</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap" rel="stylesheet">
+    <title>FOLDIT - Official Website</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div id="landing">
-        <div class="landing-container">
-            <span id="fold-text" class="bold-text">FOLD</span>
-            
-            <div id="typing-container">
+        <div id="animation-container" class="animation-container">
+            <span class="bold-text">FOLD</span>
+            <div id="typing-wrapper">
                 <span id="typing-text"></span>
             </div>
-
-            <div class="it-group">
-                <span id="i-text" class="bold-text">I</span>
-                <div id="logo-scene" class="scene">
-                    <div class="bar-horizontal"></div>
-                    <div class="bar-vertical-bottom"></div>
-                    <div class="bar-vertical-top"></div>
-                </div>
-                <span id="t-text" class="bold-text">T</span>
-            </div>
+            <span class="bold-text">IT</span>
         </div>
     </div>
 
     <div id="main-page" style="display: none;">
-        <header><h1 class="logo">FOLDIT</h1></header>
+        <header>
+            <h1 class="main-logo">FOLDIT</h1>
+        </header>
+
         <nav class="main-nav">
             <button class="tab-btn active" onclick="showTab(1)">ABOUT APP</button>
             <button class="tab-btn" onclick="showTab(2)">DEMO UI</button>
             <button class="tab-btn" onclick="showTab(3)">AI LAB</button>
         </nav>
 
-        <section id="tab1" class="tab-content active">
-            <div class="content-text">
-                <h2>원하는 것이<br>접는 순간 시작된다.</h2>
-                <p>디지털 종이접기의 정교한 메커니즘을 경험하세요.</p>
-            </div>
-            <div class="visual-placeholder">FOLDIT</div>
-        </section>
+        <div class="tab-container">
+            <section id="tab1" class="tab-content active">
+                <div class="content-split">
+                    <div class="text-side">
+                        <h2>원하는 것이<br>접는 순간 시작된다.</h2>
+                        <p>디지털 종이접기의 정교한 메커니즘을 통해<br>당신만의 창의적인 결과물을 만들어보세요.</p>
+                    </div>
+                    <div class="visual-side">
+                        <div class="placeholder-box">FOLDIT EXPERIENCE</div>
+                    </div>
+                </div>
+            </section>
 
-        <section id="tab2" class="tab-content">
-            <div class="iphone-14-pro-landscape">
-                <div class="screen">
-                    <div class="content-wrapper">
-                        <div class="figma-layout">
-                            <div class="f-text">FOLD</div>
-                            <div class="i-text">IT</div>
+            <section id="tab2" class="tab-content">
+                <div class="iphone-mockup-container">
+                    <div class="iphone-14-pro-landscape">
+                        <div class="screen">
+                            <div class="mockup-content">
+                                <div class="figma-preview">
+                                    <div class="f-text">FOLD</div>
+                                    <div class="i-text">IT</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+
+            <section id="tab3" class="tab-content">
+                <div class="lab-placeholder">
+                    <h2>AI LAB</h2>
+                    <p>준비 중인 실험실입니다.</p>
+                </div>
+            </section>
+        </div>
     </div>
 
     <script src="script.js"></script>
