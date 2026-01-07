@@ -1,64 +1,61 @@
 document.addEventListener('DOMContentLoaded', () => {
-    runLandingSequence();
+    initLanding();
 });
 
-async function runLandingSequence() {
-    const fold = document.getElementById('fold-text');
-    const i = document.getElementById('i-text');
-    const t = document.getElementById('t-text');
-    const typingBox = document.getElementById('typing-container');
+async function initLanding() {
+    const container = document.getElementById('animation-container');
     const typingTxt = document.getElementById('typing-text');
-    const scene = document.getElementById('logo-scene');
     const landing = document.getElementById('landing');
-    const main = document.getElementById('main-page');
+    const mainPage = document.getElementById('main-page');
+    const wrapper = document.getElementById('typing-wrapper');
 
     const delay = (ms) => new Promise(res => setTimeout(res, ms));
 
+    // 1. 초기 대기
     await delay(1000);
 
-    // 1단계: 확장 및 타이핑
-    fold.classList.add('orange');
-    i.classList.add('orange');
-    t.classList.add('orange');
-    typingBox.classList.add('active');
-    
-    const slogan = "Fold what you want, make it yours";
-    for(let char of slogan) {
-        typingTxt.textContent += char;
-        await delay(45);
-    }
-    
-    await delay(1500);
-
-    // 2단계: 수축
-    typingBox.classList.remove('active');
-    fold.classList.remove('orange');
-    i.classList.remove('orange');
-    t.classList.remove('orange');
+    // 2. 사이 벌리기
+    container.classList.add('expanded');
     await delay(800);
 
-    // 3단계: 3D t 변신 (80% 크기)
-    t.style.visibility = 'hidden';
-    scene.classList.add('visible');
-    await delay(100);
-    scene.classList.add('active-t');
+    // 3. 타이핑 효과
+    const slogan = "Fold what you want, make it yours";
+    for (let char of slogan) {
+        typingTxt.textContent += char;
+        await delay(50);
+    }
+    await delay(1500);
+
+    // 4. 슬로건 숨기기 및 다시 합치기
+    wrapper.style.opacity = '0';
+    await delay(300);
+    container.classList.remove('expanded');
     
+    // 5. 주황색으로 변신
+    await delay(700);
+    container.classList.add('orange-mode');
+    
+    // 6. 메인 페이지로 페이드인 전환
     await delay(1200);
-
-    // 4단계: 발사 및 페이지 전환
-    scene.classList.add('launch');
-    await delay(1000);
-
     landing.style.opacity = '0';
-    landing.style.transition = 'opacity 0.6s ease';
+    
     setTimeout(() => {
         landing.style.display = 'none';
-        main.style.display = 'block';
-    }, 600);
+        mainPage.style.display = 'block';
+        document.body.style.overflow = 'auto'; // 스크롤 허용
+    }, 800);
 }
 
-function showTab(n) {
-    document.querySelectorAll('.tab-btn, .tab-content').forEach(el => el.classList.remove('active'));
-    document.querySelectorAll('.tab-btn')[n-1].classList.add('active');
-    document.querySelectorAll('.tab-content')[n-1].classList.add('active');
+// 탭 전환 함수
+function showTab(tabNum) {
+    // 모든 버튼과 콘텐츠에서 active 제거
+    const buttons = document.querySelectorAll('.tab-btn');
+    const contents = document.querySelectorAll('.tab-content');
+
+    buttons.forEach(btn => btn.classList.remove('active'));
+    contents.forEach(content => content.classList.remove('active'));
+
+    // 선택된 탭 활성화
+    buttons[tabNum - 1].classList.add('active');
+    contents[tabNum - 1].classList.add('active');
 }
