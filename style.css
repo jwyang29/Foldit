@@ -71,6 +71,10 @@ body { font-family: 'Inter', sans-serif; background: #fff; overflow: hidden; }
 /* [애니메이션 상태 1: t로 변신] */
 .scene.active-t .bar-vertical-top { transform: rotate3d(1, 1, 0, 0deg); }
 
+/* [수정 후] - 아예 이동하지 않게 설정 */
+.scene.active-t .bar-horizontal { 
+    transform: translateY(0);
+
 /* [애니메이션 상태 2: 발사] */
 .scene.launch .bar-vertical-top { height: 2000px; }
 
