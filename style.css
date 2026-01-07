@@ -46,17 +46,52 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: var(--text-mai
 .feature-card:hover { transform: translateY(-12px); background: #fff; border-color: #eee; box-shadow: 0 30px 60px rgba(0,0,0,0.08); }
 .card-icon { font-size: 3rem; margin-bottom: 25px; display: block; }
 
-/* Split Section (추가됨) */
-.split-section { display: flex; align-items: center; gap: 80px; padding: 100px 0; }
-.split-text { flex: 1; }
-.split-text h4 { color: var(--primary); font-weight: 700; margin-bottom: 15px; text-transform: uppercase; }
-.split-text h2 { font-size: 3rem; font-weight: 900; margin-bottom: 20px; line-height: 1.2; }
-.split-visual { flex: 1.2; height: 380px; background: var(--bg-light); border-radius: 32px; overflow: hidden; padding: 30px; }
-.mock-ui { display: flex; height: 100%; gap: 15px; }
-.ui-sidebar { width: 60px; background: #fff; border-radius: 12px; opacity: 0.6; }
-.ui-main { flex: 1; display: flex; gap: 15px; }
-.ui-pane { flex: 1; background: #fff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+/* Split Section 보강 */
+.split-section { 
+    display: flex; 
+    align-items: center; 
+    gap: 100px; 
+    padding: 120px 0; 
+}
 
+.split-text { flex: 1; }
+.split-text h4 { 
+    color: var(--primary); 
+    font-weight: 700; 
+    margin-bottom: 15px; 
+    letter-spacing: 1px;
+}
+.split-text h2 { 
+    font-size: 3.5rem; 
+    font-weight: 900; 
+    margin-bottom: 25px; 
+    line-height: 1.1; 
+}
+.split-text p { 
+    font-size: 1.2rem; 
+    color: var(--text-sub); 
+    line-height: 1.6;
+}
+
+.split-visual { 
+    flex: 1.2; 
+    height: 400px; 
+    background: #E5E5EA; 
+    border-radius: 40px; 
+    padding: 30px; 
+    display: flex;
+    align-items: center;
+}
+
+.mock-ui { display: flex; width: 100%; height: 100%; gap: 15px; }
+.ui-sidebar { width: 70px; background: #fff; border-radius: 15px; opacity: 0.6; }
+.ui-main { flex: 1; display: flex; gap: 15px; }
+.ui-pane { 
+    flex: 1; 
+    background: #fff; 
+    border-radius: 15px; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
+}
 /* --- [4. DEMO UI (iPhone 14 Pro + Video)] --- */
 .iphone-mockup-container { display: flex; justify-content: center; padding: 60px 0; }
 .iphone-14-pro-landscape {
