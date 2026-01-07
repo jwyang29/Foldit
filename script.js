@@ -1,10 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
-    runFinalAnimation();
+    runLandingSequence();
 });
 
-async function runFinalAnimation() {
+async function runLandingSequence() {
     const foldText = document.getElementById('fold-text');
     const iText = document.getElementById('i-text');
+    const tText = document.getElementById('t-text');
     const typingContainer = document.getElementById('typing-container');
     const typingText = document.getElementById('typing-text');
     const logoScene = document.getElementById('logo-t-replacement');
@@ -13,29 +14,35 @@ async function runFinalAnimation() {
 
     await delay(1000);
 
-    // 1. 벌어지며 주황색 변화 + 타이핑 (T 상태 유지)
+    // 1단계: FOLD IT 사이가 벌어지며 주황색으로 변화 + 타이핑
     foldText.classList.add('orange');
     iText.classList.add('orange');
+    tText.classList.add('orange');
     typingContainer.classList.add('active');
     await typeWriter("Fold what you want, make it yours", typingText);
     
-    await delay(1200);
+    await delay(1500);
 
-    // 2. 타이핑 종료 후 다시 좁혀짐
+    // 2단계: 다시 좁혀지며 색상 복귀
     typingContainer.classList.remove('active');
     foldText.classList.remove('orange');
     iText.classList.remove('orange');
+    tText.classList.remove('orange');
     await delay(800);
 
-    // 3. T -> t 변신 (상단 막대 펼쳐짐 + 가로바 하강)
+    // 3단계: 텍스트 T를 3D 로고 T로 교체
+    tText.style.visibility = 'hidden';
+    logoScene.classList.add('visible');
+    await delay(300);
+
+    // 4단계: 소문자 t로 펼쳐지기
     logoScene.classList.add('active-t');
     await delay(1000);
 
-    // 4. 하늘로 발사 (막대 길어짐)
+    // 5단계: 하늘로 발사 및 페이지 전환
     logoScene.classList.add('launch');
     await delay(1200);
 
-    // 5. 메인 페이지로 전환
     landing.style.opacity = '0';
     landing.style.transition = 'opacity 0.6s ease';
     
@@ -53,7 +60,7 @@ function typeWriter(text, element) {
             if (i < text.length) {
                 element.innerHTML += text.charAt(i);
                 i++;
-                setTimeout(type, 40);
+                setTimeout(type, 45);
             } else {
                 resolve();
             }
