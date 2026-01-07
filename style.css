@@ -76,13 +76,42 @@ body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--bla
 /* 시각 요소 프레임 */
 .content-visual-placeholder { background: var(--primary); min-height: 450px; border: 4px solid var(--black); }
 
-/* 모바일 목업 디자인 */
-.mockup-container { 
-    width: 300px; height: 600px; border: 10px solid var(--black); 
-    border-radius: 50px; background: var(--white); margin: 0 auto;
-    display: flex; align-items: center; justify-content: center;
+/* 목업 외부 프레임 */
+.iphone-14-pro-landscape {
+    width: 852px;  /* 아이폰 14 Pro 가로 논리 해상도 */
+    height: 393px;
+    background: #000;
+    border-radius: 50px; /* 아이폰 특유의 둥근 모서리 */
+    position: relative;
+    padding: 12px; /* 베젤 두께 */
+    box-shadow: 0 20px 80px rgba(0,0,0,0.3);
+    margin: 50px auto;
+    border: 4px solid #333;
 }
-.mockup-screen { font-weight: 900; color: #ddd; }
+
+/* 실제 화면 영역 */
+.screen {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    border-radius: 38px;
+    overflow: hidden;
+    position: relative;
+}
+
+/* 피그마 콘텐츠가 담길 컨테이너 */
+.content-wrapper {
+    width: 1526px; /* 피그마 원본 너비 */
+    height: 704px; /* 피그마 원본 높이 */
+    position: absolute;
+    top: 0;
+    left: 0;
+    
+    /* [핵심] 1526px 디자인을 852px 화면에 맞게 축소 */
+    /* 계산: 852 / 1526 = 약 0.558 */
+    transform: scale(0.558);
+    transform-origin: top left;
+}
 
 /* AI LAB 전용 스타일 */
 .ai-lab-wrapper { grid-column: span 2; }
