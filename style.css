@@ -31,63 +31,77 @@ body { font-family: 'Inter', sans-serif; background: #fff; overflow: hidden; }
 
 .it-group { display: flex; align-items: center; position: relative; }
 
-/* --- 3D 로고 (전체 크기 80% 축소 적용) --- */
+/* --- 3D 로고 (레이어 고정 및 80% 축소 버전) --- */
 .scene {
     position: absolute; 
-    left: 56px; /* 간격 미세 조정 */
+    left: 56px; 
     top: 6px; 
-    width: 70px;  /* 가로폭 축소 */
+    width: 70px; 
     height: 100px; 
     display: none;
     perspective: 1200px;
+    /* preserve-3d는 자식 요소들이 각자의 Z축 깊이를 가질 수 있게 합니다. */
     transform-style: preserve-3d;
 }
 .scene.visible { display: block; }
 
-/* 1. 가로 막대 (레이어 맨 아래) */
+/* 1. 가로 막대 (가장 밑 / Z-축 가장 뒤) */
 .bar-horizontal {
     position: absolute; 
     top: 0; left: 0; 
-    width: 68px; /* 가로 길이 축소 */
+    width: 68px; 
     height: var(--thickness);
     background: var(--brown-h); 
-    z-index: 1; /* 맨 뒤 */
-    transform: translateY(0) !important;
+    z-index: 1;
+    /* [수정] translateZ(-2px)를 추가하여 물리적으로 가장 뒤에 배치 */
+    transform: translateY(0) translateZ(-2px) !important;
     transition: none;
 }
 
-/* 2. 세로 하단 기둥 (레이어 중간) */
+/* 2. 세로 하단 기둥 (중간 / Z-축 0) */
 .bar-vertical-bottom {
     position: absolute; 
     top: 0; 
-    left: 22px; /* 중앙 정렬: (68 - 24) / 2 */
+    left: 22px; 
     width: var(--thickness); 
-    height: 90px; /* 세로 길이 축소 */
+    height: 85px; 
     background: var(--orange-v); 
-    z-index: 2; /* 중간 */
+    z-index: 2;
+    /* [수정] 기준점인 0 위치에 배치 */
+    transform: translateZ(0px);
 }
 
-/* 3. 세로 상단 (레이어 맨 위) */
+/* 3. 세로 상단 (맨 위 / Z-축 가장 앞) */
 .bar-vertical-top {
     position: absolute; 
     bottom: calc(100% - var(--thickness)); 
     left: 22px; 
     width: var(--thickness); 
-    height: 55px; /* 세로 길이 축소 */
+    height: 55px; 
     background: var(--orange-v); 
-    z-index: 3; /* 맨 위 */
+    z-index: 3;
     
-    /* 45도 사선 접힘 */
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - var(--thickness)));
     transform-origin: 0% calc(100% - var(--thickness));
     
-    transform: rotate3d(1, 1, 0, 180deg);
+    /* [수정] 초기 상태에서 translateZ(2px)를 주어 항상 다른 조각 위에 떠 있게 함 */
+    transform: rotate3d(1, 1, 0, 180deg) translateZ(2px);
     transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), height 1s 0.8s ease;
+    
+    /* 뒷면이 보일 때 레이어 겹침 방지 */
+    backface-visibility: visible;
 }
 
-/* 애니메이션 상태 */
-.scene.active-t .bar-vertical-top { transform: rotate3d(1, 1, 0, 0deg); }
-.scene.launch .bar-vertical-top { height: 2500px; }
+/* [상태변화] 펼쳐질 때도 translateZ(2px)를 유지하여 레이어 역전 방지 */
+.scene.active-t .bar-vertical-top {
+    transform: rotate3d(1, 1, 0, 0deg) translateZ(2px);
+}
+
+.scene.launch .bar-vertical-top {
+    height: 2500px;
+    /* 발사 시에도 레이어 유지 */
+    transform: rotate3d(1, 1, 0, 0deg) translateZ(2px);
+}
 
 /* --- 메인 페이지 및 목업 --- */
 #main-page { padding: 60px; }
