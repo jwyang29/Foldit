@@ -2,85 +2,83 @@
     --primary: #FF4015;
     --orange-v: #E66136;
     --brown-h: #A0452D;
-    --width-bar: 45px; /* 글자 굵기에 맞춘 두께 */
+    --width-bar: 42px; /* 글자 두께와 일치하도록 조정 */
     --bg: #F0EDE5;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'Inter', sans-serif; background: var(--bg); overflow: hidden; }
 
-/* --- 랜딩 애니메이션 --- */
+/* --- [1단계] 랜딩 페이지 초기 레이아웃 --- */
 #landing {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: #fff; display: flex; justify-content: center; align-items: center; z-index: 2000;
 }
-.landing-container { display: flex; align-items: center; position: relative; }
+.landing-container { display: flex; align-items: center; justify-content: center; }
 .bold-text { font-size: 120px; font-weight: 900; color: #000; transition: color 0.5s ease; line-height: 1; }
 .bold-text.orange { color: var(--primary); }
 
+/* [2단계] 타이핑 컨테이너 */
 #typing-container {
     max-width: 0; opacity: 0; overflow: hidden; white-space: nowrap;
     transition: max-width 0.8s ease, opacity 0.5s ease;
 }
-#typing-container.active { max-width: 700px; opacity: 1; margin: 0 40px; }
-#typing-text { font-size: 28px; font-weight: 400; color: #444; }
+#typing-container.active { max-width: 750px; opacity: 1; margin: 0 40px; }
+#typing-text { font-size: 32px; font-weight: 400; color: #444; }
 
-.it-group { display: flex; align-items: flex-end; position: relative; }
+.it-group { display: flex; align-items: center; position: relative; }
 
-/* --- 3D 로고 T/t 변형 구조 --- */
+/* [3단계] 3D 로고 T -> t 변환 엔진 */
 .scene {
-    position: relative; width: 100px; height: 120px;
-    margin-left: 10px; perspective: 1000px;
+    position: absolute; left: 45px; /* I 옆 T의 위치 */
+    width: 100px; height: 120px; display: none; perspective: 1000px;
 }
+.scene.visible { display: block; }
 
-/* 가로 막대: 대문자 T일 때는 맨 위에, 소문자 t일 때는 중간에 위치하게 됨 */
+/* 가로 막대: T일 땐 맨 위, t일 땐 중앙 */
 .bar-horizontal {
-    position: absolute; top: 0; left: 0; width: 90px; height: var(--width-bar);
-    background: var(--brown-h); z-index: 2; transition: top 0.6s ease;
+    position: absolute; top: 0; left: 0; width: 100px; height: var(--width-bar);
+    background: var(--brown-h); z-index: 2; transition: top 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* 세로 하단 막대 */
 .bar-vertical-bottom {
-    position: absolute; top: 0; left: 22.5px; width: var(--width-bar); height: 110px;
+    position: absolute; top: 0; left: 29px; width: var(--width-bar); height: 115px;
     background: var(--orange-v); z-index: 1;
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
 
-/* 세로 상단 막대 (접히는 부분) */
+/* 세로 상단 막대 (펼쳐지는 부분) */
 .bar-vertical-top {
-    position: absolute; 
-    bottom: 100%; /* 가로바 위에서 시작 */
-    left: 22.5px; width: var(--width-bar); height: 50px;
+    position: absolute; bottom: 100%; left: 29px; width: var(--width-bar); height: 60px;
     background: var(--orange-v); z-index: 3;
-    
-    /* 45도 사선 접힘 구현 */
+    /* 45도 절단면 구현 */
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - var(--width-bar)));
     transform-origin: 0% calc(100% - var(--width-bar));
-    
-    /* 초기 상태: 뒤로 180도 접혀서 가로바 뒤에 숨어있음 (대문자 T 형상) */
+    /* 초기상태: 180도 뒤로 접혀 숨김 (대문자 T 모양 유지) */
     transform: rotate3d(1, 1, 0, 180deg);
-    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), height 1s 0.8s ease;
+    transition: transform 0.8s ease, height 1s 0.8s ease;
 }
 
-/* [애니메이션 상태 1: 소문자 t로 변신] */
-.scene.active-t .bar-horizontal { top: 40px; } /* 가로바가 내려오면서 t 형상 완성 */
+/* 상태 변화: 소문자 t가 됨 */
+.scene.active-t .bar-horizontal { top: 45px; } 
 .scene.active-t .bar-vertical-top { transform: rotate3d(1, 1, 0, 0deg); }
 
-/* [애니메이션 상태 2: 하늘로 발사] */
-.scene.launch .bar-vertical-top { height: 2000px; }
+/* 상태 변화: 발사 */
+.scene.launch .bar-vertical-top { height: 2500px; }
 
-/* --- iPhone 14 Pro 목업 --- */
+/* --- iPhone 14 Pro 가로 목업 (아일랜드 X) --- */
 .iphone-14-pro-landscape-no-island {
     width: 852px; height: 393px; background: #111; border-radius: 50px;
     position: relative; padding: 12px; border: 4px solid #333; margin: 0 auto;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.2);
 }
 .screen { width: 100%; height: 100%; background: #fff; border-radius: 38px; overflow: hidden; position: relative; }
 .content-wrapper { transform: scale(0.55); transform-origin: top left; }
 
-/* 메인 페이지 기본 스타일 */
-#main-page { padding: 50px; animation: fadeIn 1s ease; }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-.main-nav { display: flex; gap: 30px; border-bottom: 2px solid #000; margin: 40px 0; }
+/* --- 메인 페이지 기본 UI --- */
+#main-page { display: none; padding: 50px; }
+.logo { font-weight: 900; color: var(--primary); font-size: 2rem; margin-bottom: 20px; }
+.main-nav { display: flex; gap: 30px; border-bottom: 2px solid #000; margin-bottom: 40px; }
 .tab-btn { border: none; background: none; font-size: 1.2rem; font-weight: 900; color: #ccc; cursor: pointer; padding-bottom: 10px; }
 .tab-btn.active { color: var(--primary); border-bottom: 3px solid var(--primary); }
 .tab-content { display: none; grid-template-columns: 1fr 1fr; gap: 40px; }
