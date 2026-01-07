@@ -1,124 +1,79 @@
 :root {
     --primary: #FF4015;
+    --orange-v: #E66136;
+    --brown-h: #A0452D;
+    --width-bar: 40px; /* T 사이즈에 맞게 로고 두께 조절 */
     --bg: #F0EDE5;
-    --white: #ffffff;
-    --black: #1a1a1a;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--black); overflow-x: hidden; }
+body { font-family: 'Inter', sans-serif; background: var(--bg); overflow: hidden; }
 
-/* --- [섹션 1] 랜딩 페이지 --- */
+/* --- [수정] 랜딩 애니메이션 스타일 --- */
 #landing {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: var(--bg); display: flex; justify-content: center; align-items: center;
-    z-index: 1000; cursor: pointer; transition: transform 0.8s cubic-bezier(0.87, 0, 0.13, 1);
+    background: #fff; display: flex; justify-content: center; align-items: center; z-index: 2000;
+}
+.landing-container { display: flex; align-items: center; position: relative; }
+.bold-text { font-size: 100px; font-weight: 900; color: #000; transition: color 0.5s ease; }
+.bold-text.orange { color: var(--primary); }
+
+#typing-container {
+    max-width: 0; opacity: 0; overflow: hidden; white-space: nowrap;
+    transition: max-width 1s ease, opacity 0.5s ease;
+}
+#typing-container.active { max-width: 600px; opacity: 1; margin: 0 30px; }
+#typing-text { font-size: 24px; font-weight: 400; color: #555; font-style: italic; }
+
+/* T를 대체할 3D 로고 위치 및 사이즈 조절 */
+#t-wrapper { display: inline-block; }
+#t-wrapper.hidden { visibility: hidden; }
+
+#logo-t-replacement {
+    position: absolute; right: -5px; top: 15px; /* T 위치에 정밀 조정 */
+    width: 80px; height: 100px; display: none; transform: scale(0.6); 
+}
+#logo-t-replacement.visible { display: block; }
+
+/* 3D 로고 애니메이션 요소 (FOLDIT_logo 기준) */
+.scene { perspective: 1000px; }
+.bar-horizontal { 
+    position: absolute; top: 5%; left: 50%; width: 100px; height: var(--width-bar); 
+    background: var(--brown-h); transform: translate(-50%, 0); z-index: 1; 
+}
+.bar-vertical-bottom { 
+    position: absolute; top: 5%; left: 50%; width: var(--width-bar); height: 80px; 
+    background: var(--orange-v); transform: translateX(-50%); z-index: 2;
+    clip-path: polygon(0 0, 100% 20%, 100% 100%, 0 100%);
+}
+.bar-vertical-top { 
+    position: absolute; bottom: 85%; left: 50%; width: var(--width-bar); height: 60px; 
+    background: var(--orange-v); z-index: 3;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 80%);
+    transform-origin: 0% 80%;
+    transform: translateX(-50%) rotate3d(1, 1, 0, 180deg);
+    transition: transform 0.8s ease, height 1s 0.8s ease;
+}
+.scene.active .bar-vertical-top { 
+    transform: translateX(-50%) rotate3d(1, 1, 0, 0deg); 
+    height: 1500px; /* 화면 끝까지 나가기 */
 }
 
-.slogan-container { 
-    font-size: 5vw; font-weight: 900; display: flex; align-items: center; 
-    text-transform: uppercase; white-space: nowrap;
+/* --- [수정] iPhone 14 Pro 가로 목업 (아일랜드 제거) --- */
+.iphone-14-pro-landscape-no-island {
+    width: 852px; height: 393px; background: #000; border-radius: 50px;
+    position: relative; padding: 12px; border: 4px solid #333; margin: 0 auto;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.2);
 }
+.screen { width: 100%; height: 100%; background: #fff; border-radius: 35px; overflow: hidden; position: relative; }
+.content-wrapper { transform: scale(0.55); transform-origin: top left; }
 
-/* 텍스트 확장 애니메이션 핵심 */
-.hidden-text {
-    max-width: 0; /* 0에서 시작 */
-    opacity: 0;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: max-width 1s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease;
-    font-size: 3vw;
-    color: var(--black);
-}
-
-.hidden-text.active {
-    max-width: 800px; /* 애니메이션이 멈추지 않도록 충분한 너비 설정 */
-    opacity: 1;
-    margin: 0 2vw;
-}
-
-.it-text { color: var(--primary); }
-
-.yours-text { 
-    opacity: 0; 
-    margin-left: 1vw; 
-    transition: opacity 0.5s ease;
-}
-
-.yours-text.blink { 
-    animation: blink 1s infinite; 
-    opacity: 1; 
-}
-
-@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
-
-/* --- [섹션 2] 메인 페이지 레이아웃 --- */
-#main-page { display: none; padding: 50px; }
-.logo { font-weight: 900; color: var(--primary); margin-bottom: 30px; letter-spacing: -2px; }
-
-.main-nav { display: flex; gap: 40px; border-bottom: 3px solid var(--black); margin-bottom: 50px; }
-.tab-btn { 
-    font-size: 1.8rem; font-weight: 900; border: none; background: none; 
-    color: #bbb; cursor: pointer; padding-bottom: 15px; text-transform: uppercase;
-}
-.tab-btn.active { color: var(--primary); border-bottom: 3px solid var(--primary); margin-bottom: -3px; }
-
-/* 탭 콘텐츠 공통 */
-.tab-content { display: none; grid-template-columns: 1fr 1fr; gap: 60px; animation: slideUp 0.6s ease forwards; }
+/* --- 메인 페이지 레이아웃 (기존 유지) --- */
+#main-page { padding: 50px; animation: fadeIn 1s ease; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.logo { font-weight: 900; color: var(--primary); margin-bottom: 30px; font-size: 2.5rem; }
+.main-nav { display: flex; gap: 40px; border-bottom: 2px solid #000; margin-bottom: 50px; }
+.tab-btn { font-size: 1.2rem; font-weight: 900; border: none; background: none; color: #bbb; cursor: pointer; padding-bottom: 15px; }
+.tab-btn.active { color: var(--primary); border-bottom: 3px solid var(--primary); }
+.tab-content { display: none; grid-template-columns: 1fr 1fr; gap: 60px; }
 .tab-content.active { display: grid; }
-
-@keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-
-.content-text h2 { font-size: 3.5rem; font-weight: 900; line-height: 1.1; margin-bottom: 20px; }
-
-/* 시각 요소 프레임 */
-.content-visual-placeholder { background: var(--primary); min-height: 450px; border: 4px solid var(--black); }
-
-/* 목업 외부 프레임 */
-.iphone-14-pro-landscape {
-    width: 852px;  /* 아이폰 14 Pro 가로 논리 해상도 */
-    height: 393px;
-    background: #000;
-    border-radius: 50px; /* 아이폰 특유의 둥근 모서리 */
-    position: relative;
-    padding: 12px; /* 베젤 두께 */
-    box-shadow: 0 20px 80px rgba(0,0,0,0.3);
-    margin: 50px auto;
-    border: 4px solid #333;
-}
-
-/* 실제 화면 영역 */
-.screen {
-    width: 100%;
-    height: 100%;
-    background: #fff;
-    border-radius: 38px;
-    overflow: hidden;
-    position: relative;
-}
-
-/* 피그마 콘텐츠가 담길 컨테이너 */
-.content-wrapper {
-    width: 1526px; /* 피그마 원본 너비 */
-    height: 704px; /* 피그마 원본 높이 */
-    position: absolute;
-    top: 0;
-    left: 0;
-    
-    /* [핵심] 1526px 디자인을 852px 화면에 맞게 축소 */
-    /* 계산: 852 / 1526 = 약 0.558 */
-    transform: scale(0.558);
-    transform-origin: top left;
-}
-
-/* AI LAB 전용 스타일 */
-.ai-lab-wrapper { grid-column: span 2; }
-.sub-tab-nav { margin-bottom: 30px; display: flex; gap: 15px; }
-.sub-btn { padding: 12px 24px; font-weight: 900; border: 3px solid var(--black); background: var(--white); cursor: pointer; }
-.sub-btn.active { background: var(--black); color: var(--white); }
-
-.ai-step-box { background: var(--white); border: 4px solid var(--black); padding: 40px; }
-.step-item { margin-bottom: 30px; position: relative; padding-left: 60px; }
-.step-dot { position: absolute; left: 0; top: 0; width: 35px; height: 35px; background: var(--primary); border-radius: 50%; }
