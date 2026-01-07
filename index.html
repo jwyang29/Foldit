@@ -3,25 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Foldit - Fold what you want</title>
+    <title>Foldit - Final</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div id="landing" onclick="goToMain()">
-        <div class="slogan-container">
-            <span class="fold-text">FOLD</span>
-            <div id="expand-box" class="hidden-text">
-                <span>WHAT YOU WANT,</span>
-                <span>MAKE</span>
+    <div id="landing">
+        <div class="landing-container">
+            <span id="fold-text" class="bold-text">FOLD</span>
+            <div id="typing-container">
+                <span id="typing-text"></span>
             </div>
-            <span class="it-text">IT</span>
-            <span id="yours" class="yours-text">YOURS</span>
+            <span id="it-text" class="bold-text">I<span id="t-wrapper">T</span></span>
+            
+            <div id="logo-t-replacement" class="scene">
+                <div class="bar-horizontal"></div>
+                <div class="bar-vertical-bottom"></div>
+                <div class="bar-vertical-top"></div>
+            </div>
         </div>
     </div>
 
-    <div id="main-page">
+    <div id="main-page" style="display: none;">
         <header>
             <h1 class="logo">FOLDIT</h1>
         </header>
@@ -37,42 +41,36 @@
                 <h2>원하는 것이<br>접는 순간 시작된다.</h2>
                 <p>아날로그 종이접기의 즐거움을 디지털 월드로 연결합니다.</p>
             </div>
-            <div class="content-visual-placeholder"></div>
+            <div class="content-visual-placeholder">
+                <div class="main-logo-static">FOLDIT</div>
+            </div>
         </section>
 
         <section id="tab2" class="tab-content">
             <div class="content-text">
                 <h2>APP UI SHOWCASE</h2>
-                <p>목업 프레임을 통해 실제 앱의 흐름을 확인하세요.</p>
+                <p>iPhone 14 Pro 가로 모드 목업입니다.</p>
             </div>
-            <div class="mockup-container">
-                <div class="mockup-screen">UI ANIMATION</div>
+            
+            <div class="iphone-14-pro-landscape-no-island">
+                <div class="screen">
+                    <div class="content-wrapper">
+                        <div style="width: 1526px; height: 704px; position: relative; background: white;">
+                            <div style="width: 109px; height: 383px; left: 315px; top: 404px; position: absolute; transform: rotate(-90deg); color: black; font-size: 128px; font-family: Helvetica; font-weight: 700;">FOLD</div>
+                            <div style="width: 109px; height: 383px; left: 1083px; top: 404px; position: absolute; transform: rotate(-90deg); color: #FF4015; font-size: 128px; font-family: Helvetica; font-weight: 700;">IT</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
         <section id="tab3" class="tab-content">
             <div class="ai-lab-wrapper">
-                <div class="sub-tab-nav">
-                    <button class="sub-btn active" onclick="showSubTab('3-1')">3-1. AI Recognition</button>
-                    <button class="sub-btn" onclick="showSubTab('3-2')">3-2. Sam3D (TBD)</button>
-                </div>
-
-                <div id="sub-content-3-1" class="ai-step-box">
-                    <div class="step-item">
-                        <span class="step-dot"></span>
-                        <h3>STEP 1: 카테고리 설정</h3>
-                        <p>원하는 사물 카테고리를 선택하세요.</p>
-                    </div>
-                    <div class="step-item">
-                        <span class="step-dot"></span>
-                        <h3>STEP 2: 웹캠 인식</h3>
-                        <p>카메라에 종이접기를 비추면 AI가 분석을 시작합니다.</p>
-                    </div>
-                    <div class="step-item">
-                        <span class="step-dot"></span>
-                        <h3>STEP 3: 3D 생성 및 확인</h3>
-                        <p>인식된 사물이 3D 모델로 변환되어 나타납니다.</p>
-                    </div>
+                <div class="sub-tab-nav"><button class="sub-btn active">3-1. AI Recognition</button></div>
+                <div class="ai-step-box">
+                    <div class="step-item"><span class="step-dot"></span><h3>STEP 1: 카테고리 설정</h3></div>
+                    <div class="step-item"><span class="step-dot"></span><h3>STEP 2: 웹캠 인식</h3></div>
+                    <div class="step-item"><span class="step-dot"></span><h3>STEP 3: 3D 생성 및 확인</h3></div>
                 </div>
             </div>
         </section>
