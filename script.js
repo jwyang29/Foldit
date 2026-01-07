@@ -1,52 +1,48 @@
 document.addEventListener('DOMContentLoaded', () => {
-    startLandingAnimation();
+    runFinalAnimation();
 });
 
-async function startLandingAnimation() {
+async function runFinalAnimation() {
     const foldText = document.getElementById('fold-text');
-    const itText = document.getElementById('it-text');
+    const iText = document.getElementById('i-text');
     const typingContainer = document.getElementById('typing-container');
     const typingText = document.getElementById('typing-text');
-    const tWrapper = document.getElementById('t-wrapper');
-    const logoReplacement = document.getElementById('logo-t-replacement');
+    const logoScene = document.getElementById('logo-t-replacement');
     const landing = document.getElementById('landing');
     const mainPage = document.getElementById('main-page');
 
-    // 1. 초기 대기
     await delay(1000);
 
-    // 2. FOLD IT 사이 벌어지며 주황색으로 변경 + 타이핑 시작
+    // 1. 벌어지며 주황색 변화 + 타이핑 (T 상태 유지)
     foldText.classList.add('orange');
-    itText.classList.add('orange');
+    iText.classList.add('orange');
     typingContainer.classList.add('active');
     await typeWriter("Fold what you want, make it yours", typingText);
     
-    await delay(1500);
+    await delay(1200);
 
-    // 3. 타이핑 글씨 없어지고 다시 좁혀짐
+    // 2. 타이핑 종료 후 다시 좁혀짐
     typingContainer.classList.remove('active');
     foldText.classList.remove('orange');
-    itText.classList.remove('orange');
+    iText.classList.remove('orange');
+    await delay(800);
+
+    // 3. T -> t 변신 (상단 막대 펼쳐짐 + 가로바 하강)
+    logoScene.classList.add('active-t');
     await delay(1000);
 
-    // 4. IT의 'T'를 로고로 교체
-    tWrapper.classList.add('hidden');
-    logoReplacement.classList.add('visible');
-    await delay(500);
+    // 4. 하늘로 발사 (막대 길어짐)
+    logoScene.classList.add('launch');
+    await delay(1200);
 
-    // 5. 로고 3D 애니메이션 실행 (상단으로 쭉 나감)
-    logoReplacement.classList.add('active');
-    
-    // 6. 애니메이션 종료 시점에 메인페이지로 이동
-    await delay(2000);
+    // 5. 메인 페이지로 전환
     landing.style.opacity = '0';
-    landing.style.transition = 'opacity 0.8s ease';
+    landing.style.transition = 'opacity 0.6s ease';
     
     setTimeout(() => {
         landing.style.display = 'none';
         mainPage.style.display = 'block';
-        document.body.style.overflow = 'auto';
-    }, 800);
+    }, 600);
 }
 
 function typeWriter(text, element) {
@@ -57,7 +53,7 @@ function typeWriter(text, element) {
             if (i < text.length) {
                 element.innerHTML += text.charAt(i);
                 i++;
-                setTimeout(type, 50);
+                setTimeout(type, 40);
             } else {
                 resolve();
             }
@@ -66,16 +62,13 @@ function typeWriter(text, element) {
     });
 }
 
-function delay(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
+function delay(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
 
 function showTab(tabIndex) {
     const buttons = document.querySelectorAll('.tab-btn');
     const contents = document.querySelectorAll('.tab-content');
     buttons.forEach(btn => btn.classList.remove('active'));
     contents.forEach(content => content.classList.remove('active'));
-    
     event.currentTarget.classList.add('active');
     document.getElementById('tab' + tabIndex).classList.add('active');
 }
