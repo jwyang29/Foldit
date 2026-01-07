@@ -1,22 +1,17 @@
 :root {
     --primary: #FF4015;
     --black: #000000;
-    --bg-light: #F8F9FA;
-    --card-bg: #FFFFFF;
+    --bg-light: #F2F2F7;
     --text-main: #1D1D1F;
     --text-sub: #86868B;
     --font-landing: 120px;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Inter', sans-serif; background: #fff; color: var(--text-main); line-height: 1.5; }
+body { font-family: 'Inter', sans-serif; background: #fff; color: var(--text-main); line-height: 1.5; overflow-x: hidden; }
 
 /* --- [랜딩 애니메이션] --- */
-#landing {
-    position: fixed; inset: 0; background: #fff;
-    display: flex; justify-content: center; align-items: center; z-index: 2000;
-    transition: opacity 0.8s ease;
-}
+#landing { position: fixed; inset: 0; background: #fff; display: flex; justify-content: center; align-items: center; z-index: 2000; transition: opacity 0.8s; }
 .animation-container { display: flex; align-items: center; letter-spacing: -5px; }
 .bold-text { font-size: var(--font-landing); font-weight: 900; color: var(--black); transition: color 0.6s ease; }
 #typing-wrapper { max-width: 0; opacity: 0; overflow: hidden; white-space: nowrap; display: flex; align-items: center; transition: all 0.8s cubic-bezier(0.85, 0, 0.15, 1); }
@@ -24,14 +19,10 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: var(--text-mai
 .animation-container.expanded #typing-wrapper { max-width: 650px; opacity: 1; margin: 0 50px; }
 .animation-container.orange-mode .bold-text { color: var(--primary); }
 
-/* --- [메인 페이지 레이아웃] --- */
+/* --- [메인 페이지 공통] --- */
 #main-page { opacity: 0; transition: opacity 1s ease; max-width: 1200px; margin: 0 auto; padding: 0 40px; }
-
-.header-nav {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 30px 0; border-bottom: 1px solid #eee; margin-bottom: 40px;
-}
-.main-logo { font-size: 1.5rem; font-weight: 900; color: var(--primary); cursor: pointer; }
+.header-nav { display: flex; justify-content: space-between; align-items: center; padding: 40px 0; border-bottom: 1px solid #eee; margin-bottom: 40px; }
+.main-logo { font-size: 1.5rem; font-weight: 900; color: var(--primary); }
 .tab-menu { display: flex; gap: 30px; }
 .tab-btn { background: none; border: none; font-size: 1rem; font-weight: 700; color: var(--text-sub); cursor: pointer; padding: 10px 0; transition: 0.3s; }
 .tab-btn.active { color: var(--primary); border-bottom: 2px solid var(--primary); }
@@ -39,60 +30,60 @@ body { font-family: 'Inter', sans-serif; background: #fff; color: var(--text-mai
 /* --- [ABOUT APP 상세 레이아웃] --- */
 .tab-content { display: none; padding-bottom: 100px; }
 .tab-content.active { display: block; animation: slideUp 0.6s ease; }
-
-@keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
 /* Hero Section */
-.about-hero { text-align: center; padding: 100px 0; }
-.badge { background: #FDECEA; color: var(--primary); padding: 6px 16px; border-radius: 20px; font-size: 0.9rem; font-weight: 700; margin-bottom: 20px; display: inline-block; }
-.about-hero h2 { font-size: 4rem; font-weight: 900; line-height: 1.1; margin-bottom: 30px; letter-spacing: -2px; }
+.about-hero { text-align: center; padding: 120px 0; }
+.badge { background: #FDECEA; color: var(--primary); padding: 8px 18px; border-radius: 30px; font-size: 0.9rem; font-weight: 700; margin-bottom: 25px; display: inline-block; }
+.about-hero h2 { font-size: 4.5rem; font-weight: 900; line-height: 1.1; margin-bottom: 30px; letter-spacing: -3px; }
 .about-hero .highlight { color: var(--primary); }
-.about-hero p { font-size: 1.4rem; color: var(--text-sub); max-width: 700px; margin: 0 auto; }
+.about-hero p { font-size: 1.5rem; color: var(--text-sub); max-width: 750px; margin: 0 auto; line-height: 1.4; }
 
-/* Feature Cards */
+/* Feature Grid Cards */
 .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin: 60px 0; }
-.feature-card { background: var(--bg-light); padding: 40px; border-radius: 24px; transition: 0.3s; border: 1px solid #f0f0f0; }
-.feature-card:hover { transform: translateY(-10px); background: #fff; box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
-.card-icon { font-size: 2.5rem; margin-bottom: 20px; }
-.feature-card h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 15px; }
-.feature-card p { color: var(--text-sub); font-size: 1.1rem; }
+.feature-card { background: var(--bg-light); padding: 50px 40px; border-radius: 32px; transition: 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); border: 1px solid transparent; }
+.feature-card:hover { transform: translateY(-12px); background: #fff; border-color: #eee; box-shadow: 0 30px 60px rgba(0,0,0,0.08); }
+.card-icon { font-size: 3rem; margin-bottom: 25px; display: block; }
+.feature-card h3 { font-size: 1.6rem; font-weight: 800; margin-bottom: 15px; }
+.feature-card p { color: var(--text-sub); font-size: 1.1rem; line-height: 1.5; }
 
-/* Split Section */
-.split-section { display: flex; align-items: center; gap: 80px; padding: 100px 0; }
-.split-text h4 { color: var(--primary); font-weight: 700; margin-bottom: 10px; }
-.split-text h2 { font-size: 3rem; font-weight: 900; margin-bottom: 20px; }
-.split-text p { font-size: 1.2rem; color: var(--text-sub); }
-.split-visual { flex: 1; height: 350px; background: #eee; border-radius: 24px; overflow: hidden; }
+/* Split View Section */
+.split-section { display: flex; align-items: center; gap: 100px; padding: 120px 0; }
+.split-text { flex: 1; }
+.split-text h4 { color: var(--primary); font-weight: 700; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
+.split-text h2 { font-size: 3.5rem; font-weight: 900; margin-bottom: 25px; line-height: 1.1; }
+.split-text p { font-size: 1.3rem; color: var(--text-sub); }
+.split-visual { flex: 1.2; height: 400px; background: #E5E5EA; border-radius: 32px; overflow: hidden; padding: 25px; }
 
 /* Mock UI Visual */
-.mock-ui { display: flex; height: 100%; padding: 20px; gap: 15px; background: #E0E0E0; }
-.ui-sidebar { width: 60px; background: #fff; border-radius: 10px; opacity: 0.5; }
-.ui-main { flex: 1; display: flex; gap: 10px; }
-.ui-pane { flex: 1; background: #fff; border-radius: 10px; }
+.mock-ui { display: flex; height: 100%; gap: 15px; }
+.ui-sidebar { width: 70px; background: #fff; border-radius: 12px; opacity: 0.6; }
+.ui-main { flex: 1; display: flex; gap: 15px; }
+.ui-pane { flex: 1; background: #fff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
 
-/* Footer CTA */
-.about-footer { text-align: center; padding: 120px 0; border-top: 1px solid #eee; }
-.about-footer h2 { font-size: 3.5rem; font-weight: 900; margin-bottom: 40px; }
-.cta-button { background: var(--primary); color: #fff; border: none; padding: 20px 45px; border-radius: 40px; font-size: 1.2rem; font-weight: 700; cursor: pointer; transition: 0.3s; }
-.cta-button:hover { background: #E53912; transform: scale(1.05); }
+/* Bottom CTA */
+.about-footer { text-align: center; padding: 150px 0; border-top: 1px solid #eee; margin-top: 50px; }
+.about-footer h2 { font-size: 4rem; font-weight: 900; margin-bottom: 40px; letter-spacing: -2px; }
+.cta-button { background: var(--primary); color: #fff; border: none; padding: 22px 50px; border-radius: 50px; font-size: 1.3rem; font-weight: 700; cursor: pointer; transition: 0.3s ease; }
+.cta-button:hover { background: #000; transform: scale(1.05); }
 
 /* --- [DEMO UI (iPhone)] --- */
-.iphone-mockup-container { display: flex; justify-content: center; padding: 80px 0; }
-.iphone-14-pro-landscape { width: 780px; height: 360px; background: #111; border-radius: 50px; padding: 12px; border: 4px solid #333; position: relative; }
-.screen { width: 100%; height: 100%; background: #fff; border-radius: 38px; overflow: hidden; position: relative; }
-.mockup-content { transform: scale(0.6); transform-origin: top left; width: 1300px; height: 600px; }
+.iphone-mockup-container { display: flex; justify-content: center; padding: 100px 0; }
+.iphone-14-pro-landscape { width: 820px; height: 380px; background: #000; border-radius: 54px; padding: 14px; border: 4px solid #333; position: relative; box-shadow: 0 50px 100px rgba(0,0,0,0.15); }
+.screen { width: 100%; height: 100%; background: #fff; border-radius: 42px; overflow: hidden; position: relative; }
+.mockup-content { transform: scale(0.65); transform-origin: top left; width: 1300px; height: 600px; }
 .figma-preview { position: relative; height: 100%; }
-.f-text, .i-text { position: absolute; font-size: 120px; font-weight: 900; transform: rotate(-90deg); }
+.f-text, .i-text { position: absolute; font-size: 140px; font-weight: 900; transform: rotate(-90deg); }
 .f-text { left: 200px; top: 300px; color: #000; }
-.i-text { left: 800px; top: 300px; color: var(--primary); }
+.i-text { left: 850px; top: 300px; color: var(--primary); }
 
-.lab-placeholder { text-align: center; padding: 150px 0; background: var(--bg-light); border-radius: 30px; font-size: 1.5rem; color: var(--text-sub); }
+.lab-placeholder { text-align: center; padding: 200px 0; background: var(--bg-light); border-radius: 40px; font-size: 1.8rem; font-weight: 700; color: #ccc; }
 
 /* Responsive */
-@media (max-width: 992px) {
-    :root { --font-landing: 60px; }
-    .about-hero h2 { font-size: 2.5rem; }
+@media (max-width: 1024px) {
+    :root { --font-landing: 70px; }
+    .about-hero h2 { font-size: 3rem; }
     .feature-grid { grid-template-columns: 1fr; }
-    .split-section { flex-direction: column; text-align: center; }
-    .iphone-14-pro-landscape { width: 100%; height: 220px; }
+    .split-section { flex-direction: column; text-align: center; gap: 50px; }
+    .iphone-14-pro-landscape { width: 100%; height: 250px; }
 }
