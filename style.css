@@ -2,123 +2,69 @@
     --primary: #FF4015;
     --orange-v: #E66136;
     --brown-h: #A0452D;
-    --thickness: 24px; /* 두께 24px 유지 */
+    --thickness: 24px;
     --font-size: 120px;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'Inter', sans-serif; background: #fff; overflow: hidden; }
 
-/* --- 랜딩 페이지 --- */
-#landing {
-    position: fixed; inset: 0; background: #fff;
-    display: flex; justify-content: center; align-items: center; z-index: 2000;
-}
+#landing { position: fixed; inset: 0; display: flex; justify-content: center; align-items: center; z-index: 2000; }
 .landing-container { display: flex; align-items: center; position: relative; }
-
-.bold-text {
-    font-size: var(--font-size); font-weight: 900; color: #000;
-    line-height: 1; letter-spacing: -3px; transition: color 0.4s ease;
-}
+.bold-text { font-size: var(--font-size); font-weight: 900; letter-spacing: -3px; }
 .bold-text.orange { color: var(--primary); }
 
-#typing-container {
-    max-width: 0; opacity: 0; overflow: hidden; white-space: nowrap;
-    transition: max-width 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s;
-}
+#typing-container { max-width: 0; opacity: 0; overflow: hidden; white-space: nowrap; transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
 #typing-container.active { max-width: 600px; opacity: 1; margin: 0 35px; }
-#typing-text { font-size: 28px; font-weight: 400; color: #444; font-style: italic; }
+#typing-text { font-size: 28px; font-style: italic; color: #444; }
 
-.it-group { display: flex; align-items: center; position: relative; }
-
-/* --- 3D 로고 (레이어 고정 및 80% 축소 버전) --- */
 .scene {
-    position: absolute; 
-    left: 56px; 
-    top: 6px; 
-    width: 70px; 
-    height: 100px; 
-    display: none;
-    perspective: 1200px;
-    /* preserve-3d는 자식 요소들이 각자의 Z축 깊이를 가질 수 있게 합니다. */
+    position: absolute; left: 56px; top: 6px;
+    width: 70px; height: 100px; display: none;
+    perspective: 1500px; /* 3D 깊이감 강화 */
     transform-style: preserve-3d;
 }
 .scene.visible { display: block; }
 
-/* 1. 가로 막대 (가장 밑 / Z-축 가장 뒤) */
+/* [핵심 수정] 가로 막대: 무조건 가장 뒤로 */
 .bar-horizontal {
-    position: absolute; 
-    top: 0; left: 0; 
-    width: 68px; 
-    height: var(--thickness);
-    background: var(--brown-h); 
+    position: absolute; top: 0; left: 0; 
+    width: 68px; height: var(--thickness);
+    background: var(--brown-h);
     z-index: 1;
-    /* [수정] translateZ(-2px)를 추가하여 물리적으로 가장 뒤에 배치 */
-    transform: translateY(0) translateZ(-2px) !important;
+    /* translateZ(-10px)를 사용하여 물리적 레이어를 최하단으로 고정 */
+    transform: translateY(0) translateZ(-10px) !important;
     transition: none;
 }
 
-/* 2. 세로 하단 기둥 (중간 / Z-축 0) */
+/* 세로 하단 기둥: 중간 레이어 */
 .bar-vertical-bottom {
-    position: absolute; 
-    top: 0; 
-    left: 22px; 
-    width: var(--thickness); 
-    height: 85px; 
-    background: var(--orange-v); 
+    position: absolute; top: 0; left: 22px;
+    width: var(--thickness); height: 85px;
+    background: var(--orange-v);
     z-index: 2;
-    /* [수정] 기준점인 0 위치에 배치 */
-    transform: translateZ(0px);
+    transform: translateZ(0px); /* 기준점 */
 }
 
-/* 3. 세로 상단 (맨 위 / Z-축 가장 앞) */
+/* 세로 상단 조각: 가장 앞 레이어 */
 .bar-vertical-top {
-    position: absolute; 
-    bottom: calc(100% - var(--thickness)); 
-    left: 22px; 
-    width: var(--thickness); 
-    height: 55px; 
-    background: var(--orange-v); 
+    position: absolute; bottom: calc(100% - var(--thickness)); left: 22px;
+    width: var(--thickness); height: 55px;
+    background: var(--orange-v);
     z-index: 3;
-    
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - var(--thickness)));
     transform-origin: 0% calc(100% - var(--thickness));
     
-    /* [수정] 초기 상태에서 translateZ(2px)를 주어 항상 다른 조각 위에 떠 있게 함 */
-    transform: rotate3d(1, 1, 0, 180deg) translateZ(2px);
+    /* translateZ(10px)로 항상 가로막대보다 앞에 있도록 설정 */
+    transform: rotate3d(1, 1, 0, 180deg) translateZ(10px);
     transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), height 1s 0.8s ease;
-    
-    /* 뒷면이 보일 때 레이어 겹침 방지 */
-    backface-visibility: visible;
 }
 
-/* [상태변화] 펼쳐질 때도 translateZ(2px)를 유지하여 레이어 역전 방지 */
+/* 펼쳐질 때와 발사될 때도 레이어(translateZ) 유지 */
 .scene.active-t .bar-vertical-top {
-    transform: rotate3d(1, 1, 0, 0deg) translateZ(2px);
+    transform: rotate3d(1, 1, 0, 0deg) translateZ(10px);
 }
-
 .scene.launch .bar-vertical-top {
     height: 2500px;
-    /* 발사 시에도 레이어 유지 */
-    transform: rotate3d(1, 1, 0, 0deg) translateZ(2px);
+    transform: rotate3d(1, 1, 0, 0deg) translateZ(10px);
 }
-
-/* --- 메인 페이지 및 목업 --- */
-#main-page { padding: 60px; }
-.logo { font-weight: 900; color: var(--primary); font-size: 2.2rem; margin-bottom: 20px; }
-.main-nav { display: flex; gap: 40px; border-bottom: 2px solid #000; margin-bottom: 40px; }
-.tab-btn { background: none; border: none; font-size: 1.2rem; font-weight: 900; color: #ccc; cursor: pointer; padding-bottom: 12px; }
-.tab-btn.active { color: var(--primary); border-bottom: 4px solid var(--primary); }
-.tab-content { display: none; }
-.tab-content.active { display: block; }
-
-.iphone-14-pro-landscape {
-    width: 852px; height: 393px; background: #000; border-radius: 54px;
-    margin: 40px auto; padding: 12px; position: relative; border: 4px solid #333;
-}
-.screen { width: 100%; height: 100%; background: #fff; border-radius: 42px; overflow: hidden; }
-.content-wrapper { transform: scale(0.55); transform-origin: top left; }
-.figma-layout { width: 1526px; height: 704px; position: relative; }
-.f-text, .i-text { position: absolute; font-size: 140px; font-weight: 900; transform: rotate(-90deg); }
-.f-text { left: 300px; top: 400px; color: #000; }
-.i-text { left: 1050px; top: 400px; color: var(--primary); }
